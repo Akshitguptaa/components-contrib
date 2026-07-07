@@ -382,7 +382,7 @@ func (k *Kafka) getKafkaMetadata(meta map[string]string) (*KafkaMetadata, error)
 	if m.NumPartitions < 0 {
 		return nil, errors.New("kafka error: 'numPartitions' must be a non-negative number")
 	}
-	if m.NumPartitions > 0 && strings.ToLower(m.AuthType) == awsIAMAuthType {
+	if m.NumPartitions > 0 && strings.EqualFold(m.AuthType, awsIAMAuthType) {
 		return nil, errors.New("kafka error: 'numPartitions' auto-topic-creation is not supported with authType 'awsiam'")
 	}
 	if m.NumPartitions > 0 && m.ReplicationFactor <= 0 {
